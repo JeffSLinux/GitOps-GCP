@@ -1,0 +1,24 @@
+steps:
+#step 3
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['apply', '-f', 'k8s/']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=iocluster'
+#step 4
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [
+   'set', 
+   'image', 
+   'deployment', 
+   'cicd', 
+   'cicd=gcr.io/$PROJECT_ID/cicd:f2eff7f'
+  ]
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=iocluster'
+# push images to Google Container Registry with tags
+#images: [
+#   'gcr.io/$PROJECT_ID/cicd:f2eff7f',
+#   'gcr.io/$PROJECT_ID/cicd:latest'
+#  ]

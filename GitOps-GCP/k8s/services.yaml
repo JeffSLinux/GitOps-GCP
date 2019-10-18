@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: cicd
+spec:
+  selector:
+     run: cicd
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 31100
+  type: NodePort

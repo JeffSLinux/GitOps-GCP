@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: cicd
+  name: cicd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: cicd
+  template:
+    metadata:
+      labels:
+        run: cicd
+    spec:
+      containers:
+      - image: gcr.io/learning-221919/cicd:v1
+        name: cicd
+        ports:
+        - containerPort: 80
