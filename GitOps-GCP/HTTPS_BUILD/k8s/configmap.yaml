@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: conf-site
+  namespace: default
+data:
+  site.conf: |
+      <VirtualHost *:443>
+          ServerName k8s.alliar.com
+          ServerAlias k8s.alliar.com
+          DocumentRoot /var/www/html/site/
+          ErrorLog /var/log/httpd/error.log
+          CustomLog /var/log/httpd/requests.log combined
+          SSLEngine On
+          SSLCertificateFile /etc/httpd/tls/crt.pem
+          SSLCertificateKeyFile /etc/httpd/tls/key.pem
+          SSLCACertificateFile /etc/httpd/tls/ca_digicert.pem
+      </VirtualHost>

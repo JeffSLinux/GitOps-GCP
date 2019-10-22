@@ -1,0 +1,15 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/cicd:$COMMIT_SHA', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/cicd:$COMMIT_SHA']
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['apply', '-f', 'k8s/']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=southamerica-east1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=gkealliar'
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['set', 'image', 'deployment/cicd', 'cicd=gcr.io/$PROJECT_ID/cicd:$COMMIT_SHA']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=southamerica-east1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=gkealliar'

@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: "cicd"
+spec:
+  selector:
+    app: "cicd"
+  ports:
+    - protocol: "TCP"
+      port: 443
+      targetPort: 32000
+  type: NodePort
+
